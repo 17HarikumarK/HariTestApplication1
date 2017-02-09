@@ -11,4 +11,31 @@ var filterCtrl = angular
                     ];
                     $scope.employees = employees;
                     $scope.limitRows = 3;
+					$scope.textName = "HariKumarK";
+					$scope.sortByValue = "name";
+					$scope.DescFlag = false;
+					
+					$scope.sortData = function(columnName){
+						$scope.DescFlag = ($scope.sortByValue == columnName) ? !$scope.DescFlag : false;
+						$scope.sortByValue = columnName;
+					};
+					
+					$scope.includeArrow = function(columnName){
+						if($scope.sortByValue == columnName){
+							return $scope.DescFlag ? 'arrow-down' : 'arrow-up'
+						}
+					}
+					
+					$scope.search = function(item){
+						if($scope.searchText == undefined){
+							return true;
+						}else{
+							if ((item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) ||
+							(item.gender.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1)){
+								return true;
+							}
+						}
+					return false;	
+					}
+					
                 });
