@@ -2,22 +2,46 @@
 <head>
    <script src="Scripts/angular.js"></script> 
     <script src="Scripts/FilterApp.js"></script>
+	<link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body ng-controller = "filerCtrl">
-    Rows to Display: <input type="number" step="1" min="0" max="5" ng-model="limitRows">
-    
-    <table border="1">
+	
+	<!--String Filter : <input tyep="text" ng-model="textName | limitTo :4" >
+    Rows to Display: <input type="number" step="1" min="0" max="5" ng-model="limitRows">-->
+    Search : <input type="text" placeholder="Search Text" ng-model = "searchText">
+	<input type="checkbox" ng-model="exactMatch"/>Exact Match
+		   
+    <table>
         <thead>
             <tr>
-                <th>Name</th>
+				
+				<th>Name</th>
                 <th>DOB</th>
                 <th>Gender</th>
-                <th>Salary</th>
-                <th>Salary</th>
+                <th>Salary(By Number)</th>
+                <th>Salary (By Currency)</th>
+				
+                <!--<th ng-click="sortData('name')">Name
+				<div ng-class="includeArrow('name')"></div>
+				</th>
+                <th ng-click="sortData('dateOfBirth')">DOB
+				<div ng-class="includeArrow('dateOfBirth')"></div>
+				</th>
+                <th ng-click="sortData('gender')">Gender
+				<div ng-class="includeArrow('gender')"></div>
+				</th>
+                <th ng-click="sortData('salary')">Salary(By Number)
+				<div ng-class="includeArrow('salary')"></div>
+				</th>
+                <th ng-click="sortData('salary')">Salary (By Currency)
+				<div ng-class="includeArrow('salary')"></div>
+				</th>-->
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="employee in employees | limitTo:limitRows">
+			<tr ng-repeat="employee in employees | filter : searchText : exactMatch">
+			<!--<tr ng-repeat="employee in employees | orderBy: sortByValue : DescFlag">-->
+            <!--<tr ng-repeat="employee in employees | limitTo:limitRows">-->
                 <td>{{ employee.name | uppercase}}</td>
                 <td>{{ employee.dateOfBirth |date:"dd/MM/yyyy"}}</td>
                 <td>{{ employee.gender |lowercase}}</td>
